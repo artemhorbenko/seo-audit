@@ -1,0 +1,752 @@
+{
+ "lang": "en",
+ "title": "SEO audit: demo report",
+ "text": {
+  "label": "Demo report: fictional online garden store \"Brightwell\", all data made up",
+  "headline": "The migration sent [[464 old product URLs]] to the home page instead of their new pages",
+  "lead": "Three weeks after the move to a new store platform, 20% of old URLs still lose their rankings through a redirect to the home page. Fix the redirect map first; then the category snippets at positions 4-10, where 412,000 impressions bring under 1% clicks.",
+  "funnelNote": "Search Console and GA4, last 3 months (fictional). Non-brand queries only for CTR. Targets are suggested benchmarks for this site, not industry standards.",
+  "lensesH": "Migration, CTR and clusters are the weakest lenses",
+  "lensesP": "A score of 0-100 shows how much of each SEO lens the site already uses. A low score means a leak or untapped potential, not a failure.",
+  "checksH": "The platform is fast; the redirect map and hreflang are not",
+  "checksP": "What was checked in Search Console, in the browser and in PageSpeed Insights. Grey marks were not checked.",
+  "journeyH": "The path breaks at redirects and at the snippet",
+  "journeyP": "From Googlebot to an order. Google finds the new pages quickly, but old links lose their value and people skip the snippets.",
+  "matrixH": "{qw} quick wins with high impact and low effort",
+  "matrixP": "Each dot is an opportunity from the table below. Black dots fix what exists; outlined red dots are exploration bets.",
+  "opsH": "{n} opportunities, sorted by ICE",
+  "opsP": "ICE = impact × confidence × ease (each 1-10). The top three are highlighted. \"Observed\" means seen in the data or on the site; \"hypothesis\" still needs a test.",
+  "nextH": "Three steps for the next 2 weeks",
+  "nextP": "Each step has a hypothesis, a success metric and the cheapest way to test it.",
+  "planH": "Full plan: all {n} steps, best first",
+  "planP": "For every step: why it is here, what to do, metric, effort and risk. The top three also list alternatives, an experiment with a success threshold and a pre-mortem.",
+  "dataH": "Confidence {conf}%: backlinks and results-page data are partial",
+  "dataP": "The report rests on Search Console, GA4, a crawl of the old URL list and PageSpeed Insights. Backlinks come from the GSC Links report only, so the authority lens is the least reliable.",
+  "how": [
+   "Checked connected sources and asked 4 skippable questions (one skipped - see the answers).",
+   "Split queries into brand and non-brand with the regex brightwell|bright well|brightwel; computed CTR by position band for non-brand queries.",
+   "Requested every URL from the old sitemap (2,310) slowly and recorded the final URL and status code.",
+   "Applied 11 SEO lenses, labelled each finding observed or hypothesis and ranked them by ICE. The top three got alternatives, an experiment and a pre-mortem.",
+   "Nothing was changed on the site or in Search Console."
+  ],
+  "footer": "demo data"
+ },
+ "kpis": [
+  {
+   "v": "{health}/100",
+   "l": "SEO health index, 11 lenses"
+  },
+  {
+   "v": "464",
+   "l": "Old URLs redirected to the home page",
+   "hot": true,
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "v": "0.96%",
+   "l": "Non-brand CTR at positions 4-10, target 3%",
+   "src": "Search Console"
+  },
+  {
+   "v": "{qw}",
+   "l": "Quick wins"
+  }
+ ],
+ "leaks": [
+  {
+   "l": "Old URLs with a one-to-one 301",
+   "v": 1846,
+   "b": 2310,
+   "t": 100,
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "l": "Non-brand CTR, positions 1-3",
+   "v": 6120,
+   "b": 48300,
+   "t": 20,
+   "src": "Search Console"
+  },
+  {
+   "l": "Non-brand CTR, positions 4-10",
+   "v": 3950,
+   "b": 412000,
+   "t": 3,
+   "src": "Search Console"
+  },
+  {
+   "l": "Indexed of known pages",
+   "v": 4120,
+   "b": 6480,
+   "t": 90,
+   "src": "Search Console"
+  },
+  {
+   "l": "Organic sessions with a purchase",
+   "v": 612,
+   "b": 38900,
+   "t": 2.5,
+   "src": "GA4"
+  }
+ ],
+ "stage": {
+  "cur": 4,
+  "note": "Organic search brings tracked orders, so the site is at the last stage. The migration put that at risk: rankings of old product pages fall while their links point to the home page."
+ },
+ "lenses": [
+  {
+   "k": "Indexing",
+   "n": "Indexing and crawl",
+   "i": "idx",
+   "g": "access",
+   "s": 58
+  },
+  {
+   "k": "Technical",
+   "n": "Technical base",
+   "i": "tech",
+   "g": "access",
+   "s": 66
+  },
+  {
+   "k": "Migration",
+   "n": "Migration risk",
+   "i": "mig",
+   "g": "access",
+   "s": 28
+  },
+  {
+   "k": "Clusters",
+   "n": "Clusters and cannibalization",
+   "i": "clus",
+   "g": "match",
+   "s": 38
+  },
+  {
+   "k": "Content",
+   "n": "Content depth",
+   "i": "cont",
+   "g": "match",
+   "s": 55
+  },
+  {
+   "k": "Links",
+   "n": "Internal links",
+   "i": "link",
+   "g": "match",
+   "s": 47
+  },
+  {
+   "k": "CTR",
+   "n": "CTR and snippets",
+   "i": "ctr",
+   "g": "serp",
+   "s": 34
+  },
+  {
+   "k": "Schema",
+   "n": "Structured data",
+   "i": "schema",
+   "g": "serp",
+   "s": 62
+  },
+  {
+   "k": "AI search",
+   "n": "AI search visibility",
+   "i": "ai",
+   "g": "serp",
+   "s": 45
+  },
+  {
+   "k": "Authority",
+   "n": "Backlinks and authority",
+   "i": "auth",
+   "g": "trust",
+   "s": 52
+  },
+  {
+   "k": "Brand",
+   "n": "Brand vs non-brand",
+   "i": "brand",
+   "g": "trust",
+   "s": 70
+  }
+ ],
+ "checks": [
+  {
+   "t": "Old product URLs -> new URLs",
+   "st": "bad",
+   "v": "464 to /",
+   "note": "Of 2,310 old URLs: 1,846 one-to-one 301, 464 redirect to the home page.",
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "t": "Redirect chains",
+   "st": "warn",
+   "v": "212",
+   "note": "Old category URLs go through 2 hops (http -> https -> new path).",
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "t": "hreflang en-GB / en-US",
+   "st": "bad",
+   "v": "not reciprocal",
+   "note": "US pages point to UK pages, UK pages point to themselves only."
+  },
+  {
+   "t": "Canonical tags",
+   "st": "ok",
+   "v": "self",
+   "note": "Product and category pages point to themselves; filters canonicalize to the category."
+  },
+  {
+   "t": "XML sitemap",
+   "st": "warn",
+   "v": "310 redirects",
+   "note": "The new sitemap still lists 310 old URLs.",
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "t": "robots.txt",
+   "st": "ok",
+   "v": "with Sitemap",
+   "note": "Blocks cart and checkout; filters allowed."
+  },
+  {
+   "t": "Pages in the index",
+   "st": "warn",
+   "v": "4,120 of 6,480",
+   "note": "1,390 \"Duplicate without user-selected canonical\" - mostly color variants.",
+   "src": "Search Console"
+  },
+  {
+   "t": "Core Web Vitals, mobile (field)",
+   "st": "ok",
+   "v": "LCP 2.1 s",
+   "note": "CrUX origin data, 75th percentile; INP 160 ms, CLS 0.04.",
+   "src": "CrUX"
+  },
+  {
+   "t": "Product structured data",
+   "st": "warn",
+   "v": "820 invalid",
+   "note": "Product items missing \"offers.availability\" after the migration.",
+   "src": "Search Console"
+  },
+  {
+   "t": "AI crawlers",
+   "st": "ok",
+   "v": "allowed",
+   "note": "No rules for OAI-SearchBot or PerplexityBot; GPTBot blocked."
+  },
+  {
+   "t": "GA4 purchase event",
+   "st": "ok",
+   "v": "fires",
+   "note": "Purchase event checked in DebugView before and after the migration."
+  },
+  {
+   "t": "Internal links to old URLs",
+   "st": "warn",
+   "v": "1,940",
+   "note": "Blog posts still link to old product URLs.",
+   "src": "Crawl of old sitemap"
+  },
+  {
+   "t": "Results page for top queries",
+   "st": "nd",
+   "note": "No SerpApi or DataForSEO connected."
+  }
+ ],
+ "route": [
+  {
+   "t": "Crawl",
+   "w": "Googlebot",
+   "st": "ok",
+   "p": "New pages found within days"
+  },
+  {
+   "t": "Redirect",
+   "w": "Developer",
+   "st": "bad",
+   "p": "464 old URLs land on the home page"
+  },
+  {
+   "t": "Index",
+   "w": "Google",
+   "st": "warn",
+   "p": "1,390 color variants as duplicates"
+  },
+  {
+   "t": "Rank",
+   "w": "Content",
+   "st": "warn",
+   "p": "Category and blog split one query"
+  },
+  {
+   "t": "Snippet",
+   "w": "SEO",
+   "st": "bad",
+   "p": "Under 1% CTR at positions 4-10"
+  },
+  {
+   "t": "Landing",
+   "w": "Store",
+   "st": "ok",
+   "p": "LCP 2.1 s on real phones"
+  },
+  {
+   "t": "Order",
+   "w": "Analytics",
+   "st": "ok",
+   "p": "Purchases tracked from organic"
+  }
+ ],
+ "ops": [
+  {
+   "t": "Map the 464 home-page redirects to their closest new product or category",
+   "l": "mig",
+   "ln": "Migration",
+   "x": "opt",
+   "ev": "obs",
+   "I": 9,
+   "C": 9,
+   "E": 7
+  },
+  {
+   "t": "Rewrite titles of 20 categories at positions 4-10",
+   "l": "ctr",
+   "ln": "CTR and snippets",
+   "x": "opt",
+   "ev": "obs",
+   "I": 7,
+   "C": 6,
+   "E": 9
+  },
+  {
+   "t": "One page per intent for \"raised garden beds\"",
+   "l": "clus",
+   "ln": "Clusters",
+   "x": "opt",
+   "ev": "obs",
+   "I": 7,
+   "C": 7,
+   "E": 6
+  },
+  {
+   "t": "Make hreflang reciprocal between UK and US pages",
+   "l": "tech",
+   "ln": "Technical base",
+   "x": "opt",
+   "ev": "obs",
+   "I": 6,
+   "C": 8,
+   "E": 6
+  },
+  {
+   "t": "Remove 310 redirecting URLs from the sitemap and collapse 2-hop chains",
+   "l": "mig",
+   "ln": "Migration",
+   "x": "opt",
+   "ev": "obs",
+   "I": 5,
+   "C": 8,
+   "E": 7
+  },
+  {
+   "t": "Restore offers.availability in Product markup",
+   "l": "schema",
+   "ln": "Structured data",
+   "x": "opt",
+   "ev": "obs",
+   "I": 6,
+   "C": 6,
+   "E": 7
+  },
+  {
+   "t": "Update 1,940 blog links to the new product URLs",
+   "l": "link",
+   "ln": "Internal links",
+   "x": "opt",
+   "ev": "obs",
+   "I": 5,
+   "C": 6,
+   "E": 6
+  },
+  {
+   "t": "Canonicalize color variants to the main product",
+   "l": "idx",
+   "ln": "Indexing",
+   "x": "opt",
+   "ev": "obs",
+   "I": 5,
+   "C": 6,
+   "E": 5
+  },
+  {
+   "t": "Planting-calendar hub that links to products by season",
+   "l": "cont",
+   "ln": "Content",
+   "x": "ex",
+   "ev": "hyp",
+   "I": 7,
+   "C": 4,
+   "E": 3
+  },
+  {
+   "t": "Ask the 15 sites that linked to old guides to update links",
+   "l": "auth",
+   "ln": "Authority",
+   "x": "opt",
+   "ev": "hyp",
+   "I": 4,
+   "C": 5,
+   "E": 6
+  },
+  {
+   "t": "Plain-text buying guides that answer engines can quote",
+   "l": "ai",
+   "ln": "AI search",
+   "x": "ex",
+   "ev": "hyp",
+   "I": 4,
+   "C": 3,
+   "E": 5
+  },
+  {
+   "t": "Watch brand demand after the redesign",
+   "l": "brand",
+   "ln": "Brand",
+   "x": "opt",
+   "ev": "hyp",
+   "I": 3,
+   "C": 6,
+   "E": 9
+  }
+ ],
+ "plans": {
+  "1": {
+   "h": "If each old URL redirects to its closest new page instead of the home page, the old pages' rankings and links move to the new pages, because Google treats redirects to the home page as soft 404s.",
+   "m": "Clicks to the new product pages that replaced the 464 URLs",
+   "t": "Fix the 50 old URLs with the most impressions first; compare 14 days before and after"
+  },
+  "2": {
+   "h": "If category titles name the product type and a concrete reason to click (range, delivery), CTR at positions 4-10 rises from 0.96% to 2%, because the current titles are only the category name.",
+   "m": "CTR of the 20 categories at positions 4-10 over 28 days",
+   "t": "Change 10 titles, keep 10 as control, compare 28 days"
+  },
+  "3": {
+   "h": "If the buying guide and the category stop competing for \"raised garden beds\", one of them climbs into the top 3, because Google now alternates between them.",
+   "m": "Position and clicks of the category for the query group",
+   "t": "Refocus the guide on \"how to build\" and link it to the category; watch 28 days"
+  }
+ },
+ "detail": {
+  "1": {
+   "why": "A slow crawl of all 2,310 URLs from the old sitemap: 1,846 redirect one-to-one with 301, 464 redirect to the home page. Those 464 had 182,000 impressions in the 3 months before the migration. Search Console already reports 391 of them as \"soft 404\".",
+   "steps": [
+    "Export the 464 URLs with their impressions from Search Console (Performance > Pages, before the migration date).",
+    "Match each to the closest new product; for discontinued products use the closest category, not the home page.",
+    "Add the rules to the platform's redirect manager as 301, one hop.",
+    "Recrawl the list and confirm every URL ends on a 200 page that is not the home page.",
+    "In 14 and 28 days, compare clicks to the new pages with the old pages' baseline."
+   ],
+   "metric": "Share of old URLs with a one-to-one 301 (now 1,846 of 2,310)",
+   "effort": "2-3 days",
+   "risk": "A wrong match (a product to an unrelated category) is still a soft 404: check the top 50 by hand.",
+   "alt": [
+    "Return 410 for discontinued products - faster, but throws away their links; keep it for products with no close match and no links.",
+    "Restore the old URLs - rejected: the new platform cannot serve the old paths."
+   ],
+   "rtype": "Feasibility",
+   "thr": "100% of the top 50 URLs and 95% of all 464 mapped within 2 weeks; soft 404 count falling",
+   "pm": "It failed because the platform's redirect manager caps imports at 300 rules and the rest silently dropped. So import in batches and recrawl after each."
+  },
+  "2": {
+   "why": "Non-brand queries at positions 4-10 had 412,000 impressions and 3,950 clicks (0.96%). The 20 categories with the most impressions there all use the bare category name as the title (for example \"Planters\").",
+   "steps": [
+    "List the 20 categories with the most impressions at positions 4-10.",
+    "Write titles up to 60 characters: product type + one fact the page supports (number of products, delivery option).",
+    "Change 10, leave 10 unchanged as a control.",
+    "Compare CTR and position after 28 days."
+   ],
+   "metric": "CTR of the changed categories vs control",
+   "effort": "≈1 day",
+   "risk": "Do not promise prices or delivery terms the page does not show.",
+   "alt": [
+    "Add review stars via Product markup - only where reviews are real and on the page.",
+    "Push the categories to the top 3 with links - slower and costs more; test the snippet first."
+   ],
+   "rtype": "Value",
+   "thr": "CTR of changed titles ≥ 1.5x control at the same or better position",
+   "pm": "It failed because Google rewrote the titles. So keep titles short, match the H1, and check the shown snippet after a week.",
+   "copy": [
+    "\"Planters - 140 Indoor and Outdoor Styles | Brightwell\" - the range number answers \"is there enough choice?\".",
+    "\"Garden Planters with Free UK Delivery over £40 | Brightwell\" - leads with the delivery offer the page states."
+   ]
+  },
+  "3": {
+   "why": "For 38 queries about raised garden beds, Search Console shows two URLs: the category (average position 7.4) and the buying guide (9.1), swapping places week by week.",
+   "steps": [
+    "Keep commercial intent (\"buy\", \"for sale\", sizes) on the category; add a short buying section there.",
+    "Refocus the guide on how to build and fill a raised bed, and link to the category with a descriptive anchor.",
+    "Remove the overlapping product grid from the guide.",
+    "Watch the query group's pages tab weekly."
+   ],
+   "metric": "Number of URLs ranking for the group (target 1) and the category's position",
+   "effort": "2 days",
+   "risk": "The guide may lose informational traffic; watch its clicks separately.",
+   "alt": [
+    "Merge the guide into the category with a 301 - rejected: the guide has 15 external links and different intent.",
+    "Noindex the guide - rejected: loses its informational queries."
+   ],
+   "rtype": "Value",
+   "thr": "One URL for ≥ 80% of the group's impressions within 28 days",
+   "pm": "It failed because the guide kept the word \"buy\" in its title. Check titles and H1s of both pages before publishing."
+  },
+  "4": {
+   "why": "US product pages declare en-GB alternates, but UK pages do not link back: hreflang is ignored without return links. Search Console shows UK pages ranking in the US for 120 queries.",
+   "steps": [
+    "Generate hreflang en-GB, en-US and x-default on both versions from one template.",
+    "Validate 20 pairs by hand.",
+    "Watch US clicks to US pages."
+   ],
+   "metric": "Share of US clicks landing on US pages",
+   "effort": "1-2 days",
+   "risk": "A template error can break all alternates at once: release on one category first."
+  },
+  "5": {
+   "why": "The new sitemap lists 310 URLs that redirect, and 212 old category URLs go through two hops (http -> https -> new path).",
+   "steps": [
+    "Build the sitemap only from 200, indexable, canonical URLs.",
+    "Point the http rules straight to the final path.",
+    "Recrawl the list."
+   ],
+   "metric": "Redirecting URLs in the sitemap (target 0); 2-hop chains (target 0)",
+   "effort": "≈4 hours",
+   "risk": "Low."
+  },
+  "6": {
+   "why": "Search Console Enhancements: 820 Product items invalid since the migration, all missing offers.availability.",
+   "steps": [
+    "Map stock status to schema.org InStock / OutOfStock in the product template.",
+    "Test 5 products in the Rich Results Test.",
+    "Validate the fix in Search Console."
+   ],
+   "metric": "Invalid Product items (now 820)",
+   "effort": "≈4 hours",
+   "risk": "Show only true stock status."
+  },
+  "7": {
+   "why": "1,940 internal links in blog posts still point to old product URLs, so every one is a redirect for crawlers and users.",
+   "steps": [
+    "Export links to old URLs from the crawl.",
+    "Replace them in bulk using the redirect map.",
+    "Recrawl 20 posts."
+   ],
+   "metric": "Internal links to redirecting URLs (target 0)",
+   "effort": "≈1 day",
+   "risk": "Back up the blog before a bulk replace."
+  },
+  "8": {
+   "why": "1,390 color-variant URLs are \"Duplicate without user-selected canonical\" and use crawl budget.",
+   "steps": [
+    "Canonicalize variants to the main product.",
+    "Keep variants out of the sitemap.",
+    "Watch the duplicate count."
+   ],
+   "metric": "Duplicate pages in the index report",
+   "effort": "1 day",
+   "risk": "If a color has its own search demand, keep that variant indexable."
+  },
+  "9": {
+   "why": "Seasonal queries (\"what to plant in March\") bring guide traffic in spring, but no page ties seasons to products. Demand by month is a guess without a keyword tool.",
+   "steps": [
+    "Pull seasonal queries from 12 months of Search Console.",
+    "Build one hub page with 12 month sections linking to categories.",
+    "Measure clicks next spring."
+   ],
+   "metric": "Clicks to the hub and assisted purchases",
+   "effort": "1-2 weeks",
+   "risk": "A thin calendar copied from elsewhere does not rank; write from the store's own range."
+  },
+  "10": {
+   "why": "GSC Links shows 15 sites linking to old guide URLs that now redirect. Direct links are stronger than redirected ones (hypothesis).",
+   "steps": [
+    "List the 15 sites and linked URLs.",
+    "Email the editors with the new URL.",
+    "Track updated links."
+   ],
+   "metric": "Links updated",
+   "effort": "≈4 hours",
+   "risk": "No link buying or exchanges."
+  },
+  "11": {
+   "why": "GA4 shows 210 sessions from AI assistants in 3 months. Buying guides are long and image-heavy; key facts (sizes, materials) sit in images.",
+   "steps": [
+    "Add a plain-text facts block to the top 10 guides.",
+    "Check 10 test questions monthly in ChatGPT Search and Perplexity.",
+    "Watch the AI Assistant channel."
+   ],
+   "metric": "AI Assistant sessions per month",
+   "effort": "2 days",
+   "risk": "Write for people first."
+  },
+  "12": {
+   "why": "Brand queries are 30% of clicks and stable; the new design changed the logo. A brand drop would be an early warning, not an SEO problem.",
+   "steps": [
+    "Save a brand-query filter in Search Console.",
+    "Check it weekly for 2 months."
+   ],
+   "metric": "Weekly brand clicks",
+   "effort": "30 minutes",
+   "risk": "None."
+  }
+ },
+ "answers": [
+  {
+   "q": "What should search bring this quarter?",
+   "a": "Orders: get back to pre-migration organic revenue."
+  },
+  {
+   "q": "Which markets matter?",
+   "a": "UK first, US second."
+  },
+  {
+   "q": "What changed recently?",
+   "a": "Moved to a new store platform 3 weeks ago; the agency set redirects."
+  },
+  {
+   "q": "What was already done?",
+   "a": "Skipped. Assumption: no SEO work since the migration besides the redirects.",
+   "skipped": true
+  }
+ ],
+ "sources": [
+  {
+   "name": "Search Console",
+   "note": "connected",
+   "status": "ok"
+  },
+  {
+   "name": "GA4",
+   "note": "connected",
+   "status": "ok"
+  },
+  {
+   "name": "Crawl of old sitemap",
+   "note": "2,310 URLs",
+   "status": "ok"
+  },
+  {
+   "name": "CrUX",
+   "note": "origin data",
+   "status": "ok"
+  },
+  {
+   "name": "Owner's answers (3 of 4)",
+   "note": "done",
+   "status": "ok"
+  },
+  {
+   "name": "GSC Links (backlinks)",
+   "note": "partial",
+   "status": "demo"
+  },
+  {
+   "name": "SerpApi / DataForSEO",
+   "note": "not connected",
+   "status": "no"
+  }
+ ],
+ "glossary": {
+  "CTR": {
+   "g": "click-through rate",
+   "d": "Clicks divided by impressions. Non-brand queries at positions 4-10: 3,950 of 412,000 = 0.96%."
+  },
+  "Search Console": {
+   "g": "Google's search data",
+   "d": "Google's free tool: impressions, clicks, positions, indexing and errors."
+  },
+  "GA4": {
+   "g": "Google Analytics 4",
+   "d": "Site analytics: where visitors came from and what they did."
+  },
+  "301": {
+   "g": "permanent redirect",
+   "d": "\"Moved for good\": Google passes the old page's signals to the new one."
+  },
+  "soft 404": {
+   "g": "fake \"not found\"",
+   "d": "A page that answers 200 but looks empty or irrelevant, such as a product URL redirected to the home page."
+  },
+  "hreflang": {
+   "g": "language/region links",
+   "d": "Tags telling Google which page is for which language or country. Both pages must link to each other."
+  },
+  "x-default": {
+   "g": "fallback version",
+   "d": "The hreflang value for visitors who match no listed version."
+  },
+  "canonical": {
+   "g": "preferred URL",
+   "d": "A tag telling Google which of several similar URLs to index."
+  },
+  "LCP": {
+   "g": "main content load",
+   "d": "Largest Contentful Paint: seconds until the biggest element shows. Good is under 2.5 s."
+  },
+  "INP": {
+   "g": "responsiveness",
+   "d": "Interaction to Next Paint: how fast the page reacts to taps. Good is under 200 ms."
+  },
+  "CLS": {
+   "g": "layout shift",
+   "d": "Cumulative Layout Shift: how much content jumps while loading. Good is under 0.1."
+  },
+  "CrUX": {
+   "g": "real-user data",
+   "d": "Chrome UX Report: speed measured in real visitors' browsers."
+  },
+  "Core Web Vitals": {
+   "g": "Google's speed metrics",
+   "d": "LCP, INP and CLS from real users; part of Google's ranking signals."
+  },
+  "ICE": {
+   "g": "priority score",
+   "d": "Impact × Confidence × Ease, each 1-10."
+  },
+  "sitemap": {
+   "g": "list of URLs",
+   "d": "A file listing the URLs the site asks search engines to index. It should hold only 200, canonical URLs."
+  },
+  "robots.txt": {
+   "g": "rules for bots",
+   "d": "A file telling search and AI bots where they may go."
+  },
+  "SerpApi": {
+   "g": "results-page data",
+   "d": "A service that returns what a Google results page shows: ads, shopping, AI answers."
+  },
+  "pre-mortem": {
+   "g": "failure analysis in advance",
+   "d": "Imagine the step failed and name why, while it can still be prevented."
+  },
+  "Googlebot": {
+   "g": "Google's crawler",
+   "d": "The program that fetches pages for Google Search."
+  },
+  "AI Assistant": {
+   "g": "AI assistant channel",
+   "d": "The GA4 channel for visits from ChatGPT, Perplexity, Gemini and similar."
+  },
+  "DebugView": {
+   "g": "GA4 event check",
+   "d": "A GA4 screen showing events from your own device in real time."
+  },
+  "Rich Results Test": {
+   "g": "markup checker",
+   "d": "Google's tool that shows which rich results a page's structured data supports."
+  }
+ }
+}

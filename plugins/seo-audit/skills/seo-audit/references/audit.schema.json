@@ -1,0 +1,561 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "seo-audit report data",
+ "type": "object",
+ "required": [
+  "lang",
+  "text",
+  "lenses",
+  "ops",
+  "detail",
+  "plans",
+  "sources"
+ ],
+ "properties": {
+  "lang": {
+   "type": "string",
+   "enum": [
+    "uk",
+    "en"
+   ],
+   "description": "Report language; picks interface labels."
+  },
+  "title": {
+   "type": "string",
+   "description": "Browser tab title."
+  },
+  "text": {
+   "type": "object",
+   "description": "Report's own text. Tokens {health} {qw} {n} {conf} are replaced; [[words]] are highlighted in red. A missing or empty key removes that element.",
+   "properties": {
+    "label": {
+     "type": "string"
+    },
+    "headline": {
+     "type": "string"
+    },
+    "lead": {
+     "type": "string"
+    },
+    "funnelNote": {
+     "type": "string"
+    },
+    "lensesH": {
+     "type": "string"
+    },
+    "lensesP": {
+     "type": "string"
+    },
+    "journeyH": {
+     "type": "string"
+    },
+    "journeyP": {
+     "type": "string"
+    },
+    "matrixH": {
+     "type": "string"
+    },
+    "matrixP": {
+     "type": "string"
+    },
+    "opsH": {
+     "type": "string"
+    },
+    "opsP": {
+     "type": "string"
+    },
+    "nextH": {
+     "type": "string"
+    },
+    "nextP": {
+     "type": "string"
+    },
+    "planH": {
+     "type": "string"
+    },
+    "planP": {
+     "type": "string"
+    },
+    "dataH": {
+     "type": "string"
+    },
+    "dataP": {
+     "type": "string"
+    },
+    "footer": {
+     "type": "string"
+    },
+    "how": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "checksH": {
+     "type": "string"
+    },
+    "checksP": {
+     "type": "string"
+    }
+   }
+  },
+  "kpis": {
+   "type": "array",
+   "maxItems": 4,
+   "items": {
+    "type": "object",
+    "required": [
+     "v",
+     "l"
+    ],
+    "properties": {
+     "v": {
+      "type": "string",
+      "description": "Value; may use tokens."
+     },
+     "l": {
+      "type": "string"
+     },
+     "hot": {
+      "type": "boolean"
+     },
+     "src": {
+      "type": "string",
+      "description": "Name of the source the number came from; required for literal numbers."
+     }
+    }
+   }
+  },
+  "funnel": {
+   "type": "array",
+   "minItems": 2,
+   "description": "First item is the base and is not drawn.",
+   "items": {
+    "type": "object",
+    "required": [
+     "l",
+     "n"
+    ],
+    "properties": {
+     "l": {
+      "type": "string"
+     },
+     "n": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "hot": {
+      "type": "boolean"
+     },
+     "note": {
+      "type": "string"
+     },
+     "sub": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "leaks": {
+   "type": "array",
+   "description": "The header picture: each row is a leak, v of base b against a target t %. v:null = no data. Preferred over funnel for SEO.",
+   "items": {
+    "type": "object",
+    "required": [
+     "l",
+     "t"
+    ],
+    "properties": {
+     "l": {
+      "type": "string"
+     },
+     "v": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "description": "Count that hits the goal (e.g. clicks, indexed pages)."
+     },
+     "b": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "description": "Base count (e.g. impressions, submitted pages)."
+     },
+     "t": {
+      "type": "number",
+      "description": "Proposed target, %."
+     },
+     "sub": {
+      "type": "string"
+     },
+     "src": {
+      "type": "string",
+      "description": "Name of the source the numbers came from; required when v is a number."
+     }
+    }
+   }
+  },
+  "stage": {
+   "type": "object",
+   "required": [
+    "cur",
+    "note"
+   ],
+   "properties": {
+    "cur": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 4,
+     "description": "Search maturity: 0 Crawlable, 1 Indexed, 2 Ranking, 3 Clicked, 4 Converting."
+    },
+    "note": {
+     "type": "string"
+    }
+   }
+  },
+  "lenses": {
+   "type": "array",
+   "minItems": 11,
+   "maxItems": 11,
+   "items": {
+    "type": "object",
+    "required": [
+     "k",
+     "i",
+     "g",
+     "s"
+    ],
+    "properties": {
+     "k": {
+      "type": "string",
+      "description": "Short label on the radar."
+     },
+     "n": {
+      "type": "string",
+      "description": "Longer name in the list."
+     },
+     "i": {
+      "type": "string",
+      "enum": [
+       "idx",
+       "tech",
+       "mig",
+       "clus",
+       "cont",
+       "link",
+       "ctr",
+       "schema",
+       "ai",
+       "auth",
+       "brand"
+      ]
+     },
+     "g": {
+      "type": "string",
+      "enum": [
+       "access",
+       "match",
+       "serp",
+       "trust"
+      ]
+     },
+     "s": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+     }
+    }
+   }
+  },
+  "checks": {
+   "type": "array",
+   "description": "Technical checklist: status codes, redirects, canonicals, hreflang, sitemap, robots, Core Web Vitals and so on.",
+   "items": {
+    "type": "object",
+    "required": [
+     "t",
+     "st"
+    ],
+    "properties": {
+     "t": {
+      "type": "string",
+      "description": "What was checked."
+     },
+     "st": {
+      "type": "string",
+      "enum": [
+       "ok",
+       "warn",
+       "bad",
+       "nd"
+      ],
+      "description": "nd = no data: not checked or source missing."
+     },
+     "v": {
+      "type": "string",
+      "description": "Short value shown on the right (e.g. '3.9 s', '53 pages'). Empty for nd."
+     },
+     "note": {
+      "type": "string",
+      "description": "One line: what exactly is wrong or how it was checked."
+     },
+     "src": {
+      "type": "string",
+      "description": "Source name; required when v holds a number."
+     }
+    }
+   }
+  },
+  "route": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "t",
+     "w",
+     "st",
+     "p"
+    ],
+    "properties": {
+     "t": {
+      "type": "string"
+     },
+     "w": {
+      "type": "string"
+     },
+     "st": {
+      "type": "string",
+      "enum": [
+       "ok",
+       "warn",
+       "bad"
+      ]
+     },
+     "p": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "ops": {
+   "type": "array",
+   "minItems": 1,
+   "description": "Opportunity ids are 1-based positions in this array.",
+   "items": {
+    "type": "object",
+    "required": [
+     "t",
+     "l",
+     "ln",
+     "x",
+     "ev",
+     "I",
+     "C",
+     "E"
+    ],
+    "properties": {
+     "t": {
+      "type": "string"
+     },
+     "l": {
+      "type": "string",
+      "enum": [
+       "idx",
+       "tech",
+       "mig",
+       "clus",
+       "cont",
+       "link",
+       "ctr",
+       "schema",
+       "ai",
+       "auth",
+       "brand"
+      ]
+     },
+     "ln": {
+      "type": "string"
+     },
+     "x": {
+      "type": "string",
+      "enum": [
+       "opt",
+       "ex"
+      ]
+     },
+     "ev": {
+      "type": "string",
+      "enum": [
+       "obs",
+       "hyp"
+      ]
+     },
+     "I": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+     },
+     "C": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+     },
+     "E": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+     }
+    }
+   }
+  },
+  "plans": {
+   "type": "object",
+   "description": "Keyed by opportunity id; required for the top 3 by ICE.",
+   "additionalProperties": {
+    "type": "object",
+    "required": [
+     "h",
+     "m",
+     "t"
+    ],
+    "properties": {
+     "h": {
+      "type": "string"
+     },
+     "m": {
+      "type": "string"
+     },
+     "t": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "detail": {
+   "type": "object",
+   "description": "Keyed by opportunity id; one per opportunity.",
+   "additionalProperties": {
+    "type": "object",
+    "required": [
+     "why",
+     "steps",
+     "metric",
+     "effort",
+     "risk"
+    ],
+    "properties": {
+     "why": {
+      "type": "string"
+     },
+     "steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+       "type": "string"
+      }
+     },
+     "metric": {
+      "type": "string"
+     },
+     "effort": {
+      "type": "string"
+     },
+     "risk": {
+      "type": "string"
+     },
+     "alt": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "rtype": {
+      "type": "string"
+     },
+     "thr": {
+      "type": "string"
+     },
+     "pm": {
+      "type": "string"
+     },
+     "copy": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "answers": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "q",
+     "a"
+    ],
+    "properties": {
+     "q": {
+      "type": "string"
+     },
+     "a": {
+      "type": "string"
+     },
+     "skipped": {
+      "type": "boolean"
+     }
+    }
+   }
+  },
+  "sources": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": [
+     "name",
+     "status"
+    ],
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "note": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "ok",
+       "demo",
+       "no"
+      ]
+     }
+    }
+   }
+  },
+  "glossary": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": [
+     "g",
+     "d"
+    ],
+    "properties": {
+     "g": {
+      "type": "string"
+     },
+     "d": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

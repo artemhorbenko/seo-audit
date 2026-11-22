@@ -1,0 +1,13 @@
+{
+  "name": "seo-audit",
+  "version": "1.0.0",
+  "description": "Audit a website through 11 SEO lenses (indexing and crawl, technical, migration risk, clusters and cannibalization, content, internal links, CTR and snippets, structured data, AI search visibility, backlinks, brand vs non-brand) using Search Console, GA4 and PageSpeed read-only, and deliver a visual report with prioritized, evidence-based fixes.",
+  "author": {
+    "name": "Artem Horbenko",
+    "url": "https://github.com/artemhorbenko"
+  },
+  "homepage": "https://github.com/artemhorbenko/seo-audit",
+  "repository": "https://github.com/artemhorbenko/seo-audit",
+  "license": "MIT",
+  "keywords": ["seo", "audit", "search-console", "ga4", "core-web-vitals", "hreflang", "migration", "report"]
+}

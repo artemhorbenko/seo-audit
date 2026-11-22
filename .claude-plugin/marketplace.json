@@ -1,0 +1,16 @@
+{
+  "name": "seo-audit",
+  "description": "SEO Audit: audit a website's search performance through 11 SEO lenses and get a visual, evidence-based fix list.",
+  "owner": {
+    "name": "Artem Horbenko",
+    "url": "https://github.com/artemhorbenko"
+  },
+  "plugins": [
+    {
+      "name": "seo-audit",
+      "source": "./plugins/seo-audit",
+      "description": "Audit indexing, technical SEO, migrations, clusters, content, internal links, CTR and snippets, structured data, AI search, backlinks and brand demand from Search Console, GA4 and PageSpeed; get a prioritized, render-checked HTML report.",
+      "version": "1.0.0"
+    }
+  ]
+}
