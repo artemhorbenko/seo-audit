@@ -127,6 +127,10 @@ docs/                                  screenshots
 seo-audit-skill.zip                    the skill packaged for upload to the Claude app
 ```
 
+## Roadmap
+
+Next up: a second, hands-off output for AI agents (plain Markdown brief with tasks, exact targets and acceptance criteria) next to the designed report. See [ROADMAP.md](ROADMAP.md).
+
 ## License
 
 MIT - see [LICENSE](LICENSE).
@@ -153,5 +157,7 @@ MIT - see [LICENSE](LICENSE).
 /plugin marketplace add artemhorbenko/seo-audit
 /plugin install seo-audit@seo-audit
 ```
+
+**Плани:** другий формат результату - hands-off бриф у Markdown для AI-агентів поруч зі звітом для людей. Див. [ROADMAP.md](ROADMAP.md).
 
 Для Claude app завантажте ZIP з репозиторію ([пряме завантаження](https://github.com/artemhorbenko/seo-audit/raw/main/seo-audit-skill.zip)), потім **Customize → Skills → + → Create skill → Upload a skill**.
