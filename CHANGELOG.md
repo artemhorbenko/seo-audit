@@ -5,8 +5,8 @@
 - **Hands-off brief for AI agents.** New `scripts/build_handoff.py` turns the same `audit.json` into `audit.handoff.md` (and `--json audit.handoff.json`): how to use, site context, constraints, decisions for a human, task table, tasks `SEO-01`... sorted by ICE with evidence, exact targets (URL, now, expected), steps, acceptance criteria, metric, threshold, effort, risk, rollback; measurement and open gaps. English and Ukrainian labels.
 - Schema: optional `handoff` (context, period, constraints, decisions, measurement) and per-opportunity `owner`, `depends`, `targets`, `accept`, `human`, `rollback`. The HTML report ignores them.
 - `validate_audit.py` checks the new fields (dependencies point to real opportunities, known owners, targets have values) and warns when a top-5 task has no acceptance criteria.
-- SKILL.md: step 4 builds both outputs; a 5th start question asks who will implement; the fact check covers targets and acceptance criteria. New `references/handoff-spec.md`.
-- Examples carry hands-off fields. Tested on a second real site (see `evals/results.md`).
+- The skill builds both outputs, asks who will implement the fixes, and fact-checks targets and acceptance criteria too. New `references/handoff-spec.md`.
+- Examples carry hands-off fields.
 
 ## 1.0.0 - 2026-11-22
 
@@ -20,4 +20,3 @@ First public release. Built on the approach and report template of [product-lens
 - `validate_audit.py`: every number in KPIs, leaks and checks must name a source that is not marked `no`; checks with no data carry no value; 11 unique lenses.
 - `check_report.py`: fails on an empty technical checklist; screenshots the checklist.
 - Examples: fictional store "Brightwell" in Ukrainian and English.
-- Tested on a real site the day after a redesign (see `evals/results.md`).
