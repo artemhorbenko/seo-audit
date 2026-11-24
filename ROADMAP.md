@@ -2,9 +2,11 @@
 
 Ideas and planned work. Nothing here is promised for a date; open an issue to discuss or vote.
 
-## Planned
+## Done
 
-### Two outputs: a report for people and a hands-off brief for AI agents
+### Two outputs: a report for people and a hands-off brief for AI agents (1.1.0)
+
+Shipped in 1.1.0: `scripts/build_handoff.py`, `references/handoff-spec.md`. The plan below is kept for reference.
 
 Today the skill delivers one designed HTML report. Add a second output from the same `audit.json`, so the requester can hand the audit straight to an AI agent (Claude Code, Cursor, a CMS agent) for implementation.
 
@@ -31,8 +33,13 @@ Implementation notes:
 - Possibly a few new optional fields in the schema for machine-checkable targets (`targets`, `accept`, `depends`), ignored by the HTML template.
 - Optionally a JSON variant (`audit.handoff.json`) for agents and task trackers that prefer structured input.
 - The skill asks at the end (or in the start questions) which outputs are wanted; default: both.
-- Same idea is a candidate for [product-lens-audit](https://github.com/artemhorbenko/product-lens-audit).
+- Still open: the same idea for [product-lens-audit](https://github.com/artemhorbenko/product-lens-audit).
 
 ---
 
-**Українською.** Заплановано другий формат результату: окрім звіту з дизайном для людей - технічний hands-off бриф у Markdown (`audit.handoff.md`) для AI-агентів. Без іконок і дизайну, з чітким контекстом, обмеженнями, задачами з ID, точними URL і значеннями, кроками, критеріями приймання, залежностями та питаннями, які має вирішити людина. Генерується з того самого `audit.json`, тож обидва формати завжди збігаються.
+**Українською.** Зроблено у 1.1.0 - другий формат результату: окрім звіту з дизайном для людей - технічний hands-off бриф у Markdown (`audit.handoff.md`) для AI-агентів. Без іконок і дизайну, з чітким контекстом, обмеженнями, задачами з ID, точними URL і значеннями, кроками, критеріями приймання, залежностями та питаннями, які має вирішити людина. Генерується з того самого `audit.json`, тож обидва формати завжди збігаються.
+
+## Planned
+
+- Hands-off brief for [product-lens-audit](https://github.com/artemhorbenko/product-lens-audit).
+- Optional check script for agents: run the brief's `curl` acceptance criteria automatically and mark them passed or failed.

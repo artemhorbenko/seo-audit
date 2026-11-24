@@ -487,6 +487,60 @@
       "items": {
        "type": "string"
       }
+     },
+     "owner": {
+      "type": "string",
+      "enum": [
+       "developer",
+       "content",
+       "analytics",
+       "marketing",
+       "seo",
+       "devops",
+       "security"
+      ]
+     },
+     "depends": {
+      "type": "array",
+      "items": {
+       "type": "integer"
+      },
+      "description": "Opportunity ids (1-based) that must be done first."
+     },
+     "targets": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "url"
+       ],
+       "properties": {
+        "url": {
+         "type": "string"
+        },
+        "now": {
+         "type": "string"
+        },
+        "want": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "Exact URLs or items with the current and expected value."
+     },
+     "accept": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Acceptance criteria an agent can verify, ideally with a command or a tool (curl -I, URL Inspection, Rich Results Test)."
+     },
+     "human": {
+      "type": "string",
+      "description": "A decision a human must make before the agent acts."
+     },
+     "rollback": {
+      "type": "string"
      }
     }
    }
@@ -552,6 +606,57 @@
       "type": "string"
      },
      "d": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "handoff": {
+   "type": "object",
+   "description": "Optional. Context for the hands-off brief (build_handoff.py). The HTML report ignores it.",
+   "properties": {
+    "context": {
+     "type": "object",
+     "description": "Key-value facts an agent needs: hosts, CMS and SEO plugin, repo or deploy path if known, URL patterns, languages.",
+     "additionalProperties": {
+      "type": "string"
+     }
+    },
+    "period": {
+     "type": "string"
+    },
+    "constraints": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "What the agent must not do or must do first."
+    },
+    "decisions": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "q"
+      ],
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "q": {
+        "type": "string"
+       },
+       "default": {
+        "type": "string"
+       }
+      }
+     },
+     "description": "Questions only a human can answer before work starts."
+    },
+    "measurement": {
+     "type": "array",
+     "items": {
       "type": "string"
      }
     }

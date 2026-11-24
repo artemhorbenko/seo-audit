@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: Audit a website's search performance through 11 SEO lenses - indexing and crawl, technical (status codes, redirects, canonicals, hreflang, sitemap, robots, Core Web Vitals), migration and redesign risk, query clusters and cannibalization, content depth, internal links, CTR vs position and snippets, structured data, AI search visibility, backlinks, brand vs non-brand demand - using Search Console, GA4, PageSpeed and the live site read-only, and deliver a visual report with prioritized, evidence-based fixes. Use when someone asks for an SEO audit, why organic traffic dropped or does not grow, whether a redesign or migration hurt search, or what to fix first in SEO.
+description: Audit a website's search performance through 11 SEO lenses - indexing and crawl, technical (status codes, redirects, canonicals, hreflang, sitemap, robots, Core Web Vitals), migration and redesign risk, query clusters and cannibalization, content depth, internal links, CTR vs position and snippets, structured data, AI search visibility, backlinks, brand vs non-brand demand - using Search Console, GA4, PageSpeed and the live site read-only, and deliver a visual report for people plus a hands-off Markdown brief that an AI agent can implement. Use when someone asks for an SEO audit, why organic traffic dropped or does not grow, whether a redesign or migration hurt search, or what to fix first in SEO.
 ---
 
 # SEO Audit
@@ -13,8 +13,9 @@ Files next to this SKILL.md (read each when its step comes, not up front):
 - `references/data-sources.md` - which tools to look for, what to read in each, fallbacks, polluted-data signs, how to stay read-only (steps 0-1).
 - `references/lenses.md` - the 11 lenses, their questions, icon and group ids, the search maturity stage (step 2).
 - `references/report-spec.md` and `references/audit.schema.json` - the report's sections and the shape of its data (step 4).
+- `references/handoff-spec.md` - the hands-off brief for AI agents: what goes in it and how to write targets and acceptance criteria (step 4).
 - `assets/report-template.html` - the report page; it renders everything from one JSON block. `assets/example-audit.json` (Ukrainian) and `assets/example-audit.en.json` (English) are full examples for a fictional site.
-- `scripts/validate_audit.py`, `scripts/build_report.py`, `scripts/check_report.py` - data check, page build, render check (steps 4-5).
+- `scripts/validate_audit.py`, `scripts/build_report.py`, `scripts/build_handoff.py`, `scripts/check_report.py` - data check, page build, hands-off brief build, render check (steps 4-5).
 
 Stay on search. Pricing, positioning, onboarding and the funnel after the landing page belong to a product audit (`product-lens-audit`); name it as a next step in one line if those come up.
 
@@ -35,6 +36,7 @@ Pick the questions that change the analysis most:
 - **Which markets and languages matter**?
 - **What changed recently** (redesign, new CMS, URL structure, domain, language versions) and when, and were redirects set?
 - **What was already done** (agency work, sitemap resubmitted, disavow, content updates)?
+- **Who will implement the fixes** (an AI coding agent with the site's code, an agent with a CMS connector only, people)? This shapes the hands-off brief.
 
 An owner's claim ("all old URLs 301 to the new ones") is something to verify on a sample, not a fact; report what you found. Record each answer in `answers`; a skipped one shows the assumption taken. When the person shares data mid-run, revise the main leak and priorities instead of appending.
 
@@ -71,20 +73,22 @@ Collect all findings into one table:
 - List **measurement gaps** (no key events, polluted Direct, no backlink source) as their own opportunity when they block decisions.
 - Snippet changes get 2 title/description variants with a one-line reason each, using only facts the site states.
 
-## 4. Output: a visual report page
+## 4. Output: a report for people and a hands-off brief for agents
 
 Read `references/report-spec.md`. Write the audit as one `audit.json` following `references/audit.schema.json` (start from `assets/example-audit.json` or `.en.json`): language, the report's own text (headlines that state their point), KPIs, leaks vs target, stage, 11 lens scores, checks, search path, opportunities with a `detail` entry each, `plans` for the top 3, answers, sources and glossary. You write data only; the template draws every chart, table and label and computes ICE, the health index, quick wins and confidence.
 
 - **With a shell:** `python scripts/build_report.py audit.json report.html`. It runs `validate_audit.py` first and refuses to build on errors (an opportunity without evidence, ICE outside 1-10, a number with no source or a source marked `no`, a top-3 fix without alternatives or pre-mortem). Fix the data, not the template.
 - **Without a shell:** copy `assets/report-template.html`, set `<html lang>` and `<title>`, and replace the content of its `<script type="application/json" id="audit">` block with your JSON. Write `<\/` instead of `</` inside strings. Check the rules from `validate_audit.py` yourself.
 
-Save `audit.json` next to the report: the next run compares against it. Deliver one self-contained HTML page: publish it as an artifact when an artifact tool exists (private unless the person says otherwise), otherwise send the .html file. In chat, reply with 3-5 summary bullets, the link or file, and one line on what was checked and what could not be.
+**The hands-off brief.** Unless the requester asked for only one output, also build the brief for AI agents: read `references/handoff-spec.md`, add the optional fields to `audit.json` (`handoff` with context, constraints, decisions and measurement; per opportunity in `detail`: `owner`, `depends`, `targets`, `accept`, `human`, `rollback`), then run `python scripts/build_handoff.py audit.json audit.handoff.md` (add `--json audit.handoff.json` for task trackers). Without a shell, write the Markdown yourself in the order the spec gives. Targets and acceptance criteria must come from what you observed: real URLs, real current values, checks an agent can run.
+
+Save `audit.json` next to the report: the next run compares against it. Deliver the report as one self-contained HTML page: publish it as an artifact when an artifact tool exists (private unless the person says otherwise), otherwise send the .html file. Send the hands-off brief as a .md file (it is meant to be pasted or attached to an agent, not viewed). In chat, reply with 3-5 summary bullets, the link or file, and one line on what was checked and what could not be.
 
 ## 5. Check before delivering
 
 Never deliver a report you have not checked.
 
-1. **Facts.** Every number in the text, KPIs, leaks, checks and `why` fields must trace to a source in `sources` or to the owner's answers, and the arithmetic must hold (CTR = clicks / impressions, shares, sums of rows vs rounded totals). In Claude Code, give this to a separate subagent that has not seen your reasoning: pass it `audit.json` and the raw material (exports, notes of what each GSC and GA4 screen showed) and ask it to list every number it cannot trace. Elsewhere, do the pass yourself, number by number. Fix or remove what does not trace.
+1. **Facts.** Every number in the text, KPIs, leaks, checks, `why`, `targets` and `accept` fields must trace to a source in `sources` or to the owner's answers, and the arithmetic must hold (CTR = clicks / impressions, shares, sums of rows vs rounded totals). In Claude Code, give this to a separate subagent that has not seen your reasoning: pass it `audit.json` and the raw material (exports, notes of what each GSC and GA4 screen showed) and ask it to list every number it cannot trace. Elsewhere, do the pass yourself, number by number. Fix or remove what does not trace.
 2. **Script.** `node --check` on the template's main script if you edited anything beyond the JSON.
 3. **Render**, when Python and a Chromium-based browser are available (`pip install playwright`, `playwright install chromium`): `python scripts/check_report.py report.html --out ./report-check`. It opens the page as desktop (1280px), tablet (820px, touch) and phone (390px, touch) and fails on page or console errors, sideways scroll, empty charts, leaks or checklist, overlapping or overflowing labels, tooltips that do not open on hover or tap or do not close on a second tap, broken phone table cells and filters. It saves screenshots, including dark mode.
 4. **Look at the screenshots**: radar labels, matrix dots, the checklist values, dark-theme contrast.

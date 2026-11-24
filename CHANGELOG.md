@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 - 2026-11-24
+
+- **Hands-off brief for AI agents.** New `scripts/build_handoff.py` turns the same `audit.json` into `audit.handoff.md` (and `--json audit.handoff.json`): how to use, site context, constraints, decisions for a human, task table, tasks `SEO-01`... sorted by ICE with evidence, exact targets (URL, now, expected), steps, acceptance criteria, metric, threshold, effort, risk, rollback; measurement and open gaps. English and Ukrainian labels.
+- Schema: optional `handoff` (context, period, constraints, decisions, measurement) and per-opportunity `owner`, `depends`, `targets`, `accept`, `human`, `rollback`. The HTML report ignores them.
+- `validate_audit.py` checks the new fields (dependencies point to real opportunities, known owners, targets have values) and warns when a top-5 task has no acceptance criteria.
+- SKILL.md: step 4 builds both outputs; a 5th start question asks who will implement; the fact check covers targets and acceptance criteria. New `references/handoff-spec.md`.
+- Examples carry hands-off fields. Tested on a second real site (see `evals/results.md`).
+
 ## 1.0.0 - 2026-11-22
 
 First public release. Built on the approach and report template of [product-lens-audit](https://github.com/artemhorbenko/product-lens-audit) 1.2.1.

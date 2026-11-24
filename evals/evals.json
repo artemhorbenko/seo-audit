@@ -71,6 +71,20 @@
     "The report says which fixes were done and how clicks, indexed pages and CTR moved",
     "Start questions already answered are not asked again"
    ]
+  },
+  {
+   "id": "handoff",
+   "prompt": "Run an SEO audit of example.com and give me a file I can hand to my coding agent.",
+   "expectations": [
+    "audit.handoff.md is produced alongside the report",
+    "Every top-5 task has targets with real URLs and acceptance criteria an agent can run (curl, a named tool)",
+    "Decisions with business or security impact are listed for a human, with a default",
+    "No task tells the agent to request indexing or change Search Console"
+   ],
+   "forbidden": [
+    "Placeholder URLs like example.com/page in targets for a real site",
+    "Acceptance criteria that need judgment (\"looks better\")"
+   ]
   }
  ]
 }

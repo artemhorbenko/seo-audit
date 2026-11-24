@@ -1,18 +1,70 @@
 [
- {"query": "Do an SEO audit of example.com", "should_trigger": true},
- {"query": "Our organic traffic dropped after the redesign. What broke?", "should_trigger": true},
- {"query": "зроби SEO-аудит мого сайту", "should_trigger": true},
- {"query": "чому сайт має покази в Google, але немає кліків?", "should_trigger": true},
- {"query": "Check our hreflang, canonicals and redirects after the migration", "should_trigger": true},
- {"query": "What should I fix first to get more traffic from Google? Search Console screenshots attached.", "should_trigger": true},
- {"query": "Are two of our pages cannibalizing each other for the same keyword?", "should_trigger": true},
- {"query": "Is our site visible in AI search like ChatGPT and Perplexity?", "should_trigger": true},
- {"query": "Write an SEO-optimized blog post about container shipping", "should_trigger": false},
- {"query": "What does hreflang mean?", "should_trigger": false},
- {"query": "Set up GA4 on my WordPress site", "should_trigger": false},
- {"query": "Why does my landing page convert so badly? Here's the URL.", "should_trigger": false},
- {"query": "Audit our SaaS onboarding through JTBD and growth loops", "should_trigger": false},
- {"query": "напиши meta description для цієї сторінки", "should_trigger": false},
- {"query": "Fix the 500 error on my checkout page", "should_trigger": false},
- {"query": "Make a pitch deck for our seed round", "should_trigger": false}
+ {
+  "query": "Do an SEO audit of example.com",
+  "should_trigger": true
+ },
+ {
+  "query": "Our organic traffic dropped after the redesign. What broke?",
+  "should_trigger": true
+ },
+ {
+  "query": "зроби SEO-аудит мого сайту",
+  "should_trigger": true
+ },
+ {
+  "query": "чому сайт має покази в Google, але немає кліків?",
+  "should_trigger": true
+ },
+ {
+  "query": "Check our hreflang, canonicals and redirects after the migration",
+  "should_trigger": true
+ },
+ {
+  "query": "What should I fix first to get more traffic from Google? Search Console screenshots attached.",
+  "should_trigger": true
+ },
+ {
+  "query": "Are two of our pages cannibalizing each other for the same keyword?",
+  "should_trigger": true
+ },
+ {
+  "query": "Is our site visible in AI search like ChatGPT and Perplexity?",
+  "should_trigger": true
+ },
+ {
+  "query": "Audit our SEO and write the fixes as tasks my AI agent can implement",
+  "should_trigger": true
+ },
+ {
+  "query": "Write an SEO-optimized blog post about container shipping",
+  "should_trigger": false
+ },
+ {
+  "query": "What does hreflang mean?",
+  "should_trigger": false
+ },
+ {
+  "query": "Set up GA4 on my WordPress site",
+  "should_trigger": false
+ },
+ {
+  "query": "Why does my landing page convert so badly? Here's the URL.",
+  "should_trigger": false
+ },
+ {
+  "query": "Audit our SaaS onboarding through JTBD and growth loops",
+  "should_trigger": false
+ },
+ {
+  "query": "напиши meta description для цієї сторінки",
+  "should_trigger": false
+ },
+ {
+  "query": "Fix the 500 error on my checkout page",
+  "should_trigger": false
+ },
+ {
+  "query": "Make a pitch deck for our seed round",
+  "should_trigger": false
+ }
 ]

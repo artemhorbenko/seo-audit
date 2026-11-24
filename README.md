@@ -1,6 +1,6 @@
 # SEO Audit
 
-A Claude skill that audits a website's search performance through **11 SEO lenses** and turns the findings into a visual, evidence-based report with a prioritized fix list. It reads Google Search Console, GA4, PageSpeed Insights and the live site **read-only**, and never invents a number to fill a gap.
+A Claude skill that audits a website's search performance through **11 SEO lenses** and delivers two outputs from the same data: a visual, evidence-based **report for people** and a **hands-off brief for AI agents** that implement the fixes. It reads Google Search Console, GA4, PageSpeed Insights and the live site **read-only**, and never invents a number to fill a gap.
 
 **Live demo:** [English](https://claude.ai/artifact/WY6Vo8mEAYck5h31ha9LYh) (fictional online store "Brightwell" after a platform migration, made-up data).
 
@@ -41,13 +41,26 @@ Plus a **search maturity stage** (crawlable, indexed, ranking, clicked, converti
 <img src="docs/report-phone-tooltip-en.png" alt="Tooltip on a phone" width="30%">
 </p>
 
+## Two outputs
+
+| | Report for people | Hands-off brief for agents |
+|---|---|---|
+| File | `report.html` (published as a page) | `audit.handoff.md` (+ optional `audit.handoff.json`) |
+| Made for | owners, marketers, managers | Claude Code, Cursor, a CMS agent, or a developer |
+| Looks like | annual-report design, charts, icons, tooltips | plain Markdown, no design |
+| Contains | the biggest leak, leaks vs target, checklist, lens radar, matrix, ranked plan | site context, constraints, decisions for a human, tasks `SEO-01`... sorted by ICE with exact targets (URL, now, expected), steps, **acceptance criteria an agent can verify**, dependencies, owner, risk, rollback |
+
+Example brief for the fictional demo store: [docs/example.handoff.md](docs/example.handoff.md).
+
+Both are built from one `audit.json` (`build_report.py`, `build_handoff.py`), so they never disagree. Hand the brief to your coding agent: *"Implement SEO-01 to SEO-03 from audit.handoff.md and report which acceptance criteria pass."*
+
 ## How it works
 
 1. **Checks connected sources** - browser (for the Search Console and GA4 web UIs and the site), GSC / GA4 connectors, Ahrefs, DataForSEO, SerpApi, PageSpeed Insights / CrUX, a CMS connector for this site - and marks each as used, partial or missing.
 2. **Asks up to 4 quick questions**, each skippable: what search should bring, which markets, what changed recently (redesign, URLs, domain), what was already done. An owner's claim ("all 301s are set") is verified on a sample.
 3. **Gathers** GSC performance, indexing, sitemaps, crawl stats and URL Inspection; GA4 channels and key events; robots.txt, sitemaps and old-to-new redirects on the live site; PageSpeed. It goes slowly and stops at the first 429 or bot check instead of bypassing it.
 4. **Applies the 11 lenses**, ties every finding to evidence, and ranks fixes with ICE.
-5. **Writes one `audit.json`**, validates it (`validate_audit.py`: every finding has evidence, every number in KPIs, leaks and checks names a source that is not missing, the top 3 have alternatives and a pre-mortem), builds the page (`build_report.py`), **checks that it renders** on desktop, tablet and phone (`check_report.py`), and runs a **fact check** of every number against the raw data (in Claude Code, by a separate agent).
+5. **Writes one `audit.json`** and builds both outputs: validates it (`validate_audit.py`: every finding has evidence, every number in KPIs, leaks and checks names a source that is not missing, the top 3 have alternatives and a pre-mortem), builds the page (`build_report.py`) and the hands-off brief (`build_handoff.py`), **checks that the page renders** on desktop, tablet and phone (`check_report.py`), and runs a **fact check** of every number against the raw data (in Claude Code, by a separate agent).
 
 Read-only by design: no "Request indexing", no sitemap submits, no redirect or setting changes.
 
@@ -92,6 +105,7 @@ The skill works with just a URL, but Search Console is what makes it sharp. Conn
 S=plugins/seo-audit/skills/seo-audit
 python $S/scripts/validate_audit.py audit.json          # data and rules, standard library only
 python $S/scripts/build_report.py audit.json report.html
+python $S/scripts/build_handoff.py audit.json audit.handoff.md --json audit.handoff.json
 pip install playwright && playwright install chromium
 python $S/scripts/check_report.py report.html --out ./report-check
 ```
@@ -115,12 +129,14 @@ plugins/seo-audit/
     references/lenses.md               the 11 SEO lenses and the maturity stage
     references/data-sources.md         what to read in GSC, GA4, the site, PageSpeed; fallbacks; read-only rules
     references/report-spec.md          report sections, tooltips, mobile rules
+    references/handoff-spec.md         hands-off brief for agents: targets, acceptance criteria
     references/audit.schema.json       shape of the report data
     assets/report-template.html        the report page; renders from one JSON block
     assets/example-audit.json          full example, Ukrainian (fictional "Brightwell")
     assets/example-audit.en.json       the same example in English
     scripts/validate_audit.py          data and rule check
     scripts/build_report.py            audit.json -> report.html
+    scripts/build_handoff.py           audit.json -> audit.handoff.md / .json
     scripts/check_report.py            headless render check
 evals/                                 test scenarios, trigger prompts, results log
 docs/                                  screenshots
@@ -129,7 +145,7 @@ seo-audit-skill.zip                    the skill packaged for upload to the Clau
 
 ## Roadmap
 
-Next up: a second, hands-off output for AI agents (plain Markdown brief with tasks, exact targets and acceptance criteria) next to the designed report. See [ROADMAP.md](ROADMAP.md).
+See [ROADMAP.md](ROADMAP.md).
 
 ## License
 
@@ -158,6 +174,6 @@ MIT - see [LICENSE](LICENSE).
 /plugin install seo-audit@seo-audit
 ```
 
-**Плани:** другий формат результату - hands-off бриф у Markdown для AI-агентів поруч зі звітом для людей. Див. [ROADMAP.md](ROADMAP.md).
+**Два результати з одного `audit.json`:** звіт із дизайном для людей і hands-off бриф у Markdown для AI-агентів (контекст, обмеження, рішення для людини, задачі `SEO-01`… з точними URL, поточними й потрібними значеннями, кроками й критеріями приймання, які агент може перевірити сам).
 
 Для Claude app завантажте ZIP з репозиторію ([пряме завантаження](https://github.com/artemhorbenko/seo-audit/raw/main/seo-audit-skill.zip)), потім **Customize → Skills → + → Create skill → Upload a skill**.

@@ -1,5 +1,7 @@
 # Report specification
 
+This is the report for people. The second output, the hands-off brief for agents, is in `handoff-spec.md`; both come from the same `audit.json`.
+
 The report is one self-contained HTML page. `assets/report-template.html` implements everything below and renders it from one `<script type="application/json" id="audit">` block; you write only that JSON (`audit.schema.json`, examples in `assets/example-audit.json` (Ukrainian) and `assets/example-audit.en.json` (English)). Rebuild from this spec only if the template cannot be used.
 
 ## Look

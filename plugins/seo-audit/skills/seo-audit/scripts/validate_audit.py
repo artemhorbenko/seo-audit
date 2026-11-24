@@ -156,6 +156,27 @@ def validate(a):
             if not d.get(k):
                 E(f"top-3 opportunity #{oid} needs detail.{k} (alternatives, risk type, threshold, pre-mortem)")
 
+    # hands-off fields (optional; used by build_handoff.py, ignored by the report)
+    OWNERS = {"developer", "content", "analytics", "marketing", "seo", "devops", "security"}
+    for k, d in (a.get("detail") or {}).items():
+        p = f"detail[\"{k}\"]"
+        for dep in d.get("depends", []):
+            if not isinstance(dep, int) or not 1 <= dep <= len(ops) or str(dep) == k:
+                E(f"{p}.depends has {dep!r}: use other opportunity ids (1-{len(ops)})")
+        if d.get("owner") and d["owner"] not in OWNERS:
+            E(f"{p}.owner must be one of {sorted(OWNERS)}")
+        if "accept" in d and (not isinstance(d["accept"], list) or not all(str(x).strip() for x in d["accept"])):
+            E(f"{p}.accept must be a list of checkable criteria")
+        for j, g in enumerate(d.get("targets", [])):
+            if not g.get("url") or not (g.get("now") or g.get("want")):
+                E(f"{p}.targets[{j}] needs url and now and/or want")
+    if a.get("handoff"):
+        for oid in ranked[:5]:
+            if not ((a.get("detail") or {}).get(str(oid)) or {}).get("accept"):
+                W(f"opportunity #{oid} (top 5) has no accept list: the hands-off brief will have no acceptance criteria for it")
+        if not (a["handoff"].get("context")):
+            W("handoff.context is empty: agents get no site context")
+
     # technical checklist
     for i, c in enumerate(a.get("checks") or []):
         p = f"checks[{i}]"

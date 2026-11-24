@@ -460,7 +460,21 @@
    ],
    "rtype": "Feasibility",
    "thr": "100% of the top 50 URLs and 95% of all 464 mapped within 2 weeks; soft 404 count falling",
-   "pm": "It failed because the platform's redirect manager caps imports at 300 rules and the rest silently dropped. So import in batches and recrawl after each."
+   "pm": "It failed because the platform's redirect manager caps imports at 300 rules and the rest silently dropped. So import in batches and recrawl after each.",
+   "owner": "developer",
+   "targets": [
+    {
+     "url": "464 old product URLs (list from the crawl)",
+     "now": "301 -> /",
+     "want": "301 -> closest new product or category"
+    }
+   ],
+   "accept": [
+    "Every one of the 464 old URLs returns 301 to a URL that returns 200 and is not https://www.brightwell.example/.",
+    "No redirect chain longer than one hop in the recrawl.",
+    "Soft 404 count in Search Console starts falling within 2 weeks (checked by a person)."
+   ],
+   "rollback": "Restore the redirect table from the backup."
   },
   "2": {
    "why": "Non-brand queries at positions 4-10 had 412,000 impressions and 3,950 clicks (0.96%). The 20 categories with the most impressions there all use the bare category name as the title (for example \"Planters\").",
@@ -483,7 +497,23 @@
    "copy": [
     "\"Planters - 140 Indoor and Outdoor Styles | Brightwell\" - the range number answers \"is there enough choice?\".",
     "\"Garden Planters with Free UK Delivery over £40 | Brightwell\" - leads with the delivery offer the page states."
-   ]
+   ],
+   "owner": "marketing",
+   "depends": [
+    1
+   ],
+   "targets": [
+    {
+     "url": "20 categories at positions 4-10",
+     "now": "title = category name",
+     "want": "10 changed titles, 10 unchanged control"
+    }
+   ],
+   "accept": [
+    "The 10 changed categories serve the new <title> (curl and grep).",
+    "Titles are 60 characters or less and every number in them appears on the page."
+   ],
+   "rollback": "Restore the previous titles (kept in the PR description)."
   },
   "3": {
    "why": "For 38 queries about raised garden beds, Search Console shows two URLs: the category (average position 7.4) and the buying guide (9.1), swapping places week by week.",
@@ -502,7 +532,24 @@
    ],
    "rtype": "Value",
    "thr": "One URL for ≥ 80% of the group's impressions within 28 days",
-   "pm": "It failed because the guide kept the word \"buy\" in its title. Check titles and H1s of both pages before publishing."
+   "pm": "It failed because the guide kept the word \"buy\" in its title. Check titles and H1s of both pages before publishing.",
+   "owner": "content",
+   "targets": [
+    {
+     "url": "/raised-garden-beds (category)",
+     "now": "position 7.4, swaps with the guide",
+     "want": "single page for commercial queries"
+    },
+    {
+     "url": "/guides/raised-garden-beds",
+     "now": "position 9.1",
+     "want": "refocused on how to build, links to the category"
+    }
+   ],
+   "accept": [
+    "The guide's title and H1 no longer contain \"buy\".",
+    "The guide links to the category with a descriptive anchor."
+   ]
   },
   "4": {
    "why": "US product pages declare en-GB alternates, but UK pages do not link back: hreflang is ignored without return links. Search Console shows UK pages ranking in the US for 120 queries.",
@@ -513,7 +560,11 @@
    ],
    "metric": "Share of US clicks landing on US pages",
    "effort": "1-2 days",
-   "risk": "A template error can break all alternates at once: release on one category first."
+   "risk": "A template error can break all alternates at once: release on one category first.",
+   "owner": "developer",
+   "accept": [
+    "Every UK product page lists hreflang en-GB, en-US and x-default, and the US page lists the same set back."
+   ]
   },
   "5": {
    "why": "The new sitemap lists 310 URLs that redirect, and 212 old category URLs go through two hops (http -> https -> new path).",
@@ -524,7 +575,12 @@
    ],
    "metric": "Redirecting URLs in the sitemap (target 0); 2-hop chains (target 0)",
    "effort": "≈4 hours",
-   "risk": "Low."
+   "risk": "Low.",
+   "accept": [
+    "post sitemap and category sitemap contain no URL that returns 3xx (check every <loc> with curl).",
+    "Every old category URL from the crawl reaches its final URL in one 301 hop."
+   ],
+   "owner": "developer"
   },
   "6": {
    "why": "Search Console Enhancements: 820 Product items invalid since the migration, all missing offers.availability.",
@@ -748,5 +804,31 @@
    "g": "markup checker",
    "d": "Google's tool that shows which rich results a page's structured data supports."
   }
+ },
+ "handoff": {
+  "period": "Search Console and GA4: last 3 months (fictional)",
+  "context": {
+   "Main host": "https://www.brightwell.example (new store platform, live 3 weeks)",
+   "Markets": "UK (en-GB) first, US (en-US) second",
+   "Old URLs": "2,310 URLs from the pre-migration sitemap; redirect manager in the store admin",
+   "Analytics": "GA4 with purchase event"
+  },
+  "constraints": [
+   "Do not request indexing or change Search Console settings; list those for a person.",
+   "Import redirects in batches of at most 300 and recrawl after each batch.",
+   "One hop per redirect, 301, target returns 200 and is not the home page.",
+   "Back up the store's redirect table and theme before changes."
+  ],
+  "decisions": [
+   {
+    "id": "D1",
+    "q": "For discontinued products with no close match: 410 or redirect to the category?",
+    "default": "Redirect to the closest category."
+   }
+  ],
+  "measurement": [
+   "Baseline: 1,846 of 2,310 old URLs with a one-to-one 301; non-brand CTR at positions 4-10 0.96%.",
+   "Re-check 14 and 28 days after the redirect fix."
+  ]
  }
 }
